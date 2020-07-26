@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template
 from datetime import datetime
+import pandas as pd
 
 @app.template_filter('clean_date')
 def clean_date(date):
@@ -53,12 +54,14 @@ def jinja():
 
     suspicious = "<script>alert('YOU GOT HACKED!')</script>"
 
+    html_df = pd.DataFrame({'col1': ['a', 'b', 'c'], 'col2': [1,2,3]}).to_html(classes=["table-bordered", "table-striped", "table-hover", "data"])
+
     return render_template(
         "public/jinja.html", my_name=my_name, age=age, 
         langs=langs, friends=friends, colours=colours,
         cool=cool, GitRemote=GitRemote, repeat=repeat,
         my_remote=my_remote, date=date, my_html=my_html,
-        suspicious=suspicious
+        suspicious=suspicious, html_df=html_df
     )
 
 @app.route("/about")
