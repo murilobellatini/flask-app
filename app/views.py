@@ -84,3 +84,34 @@ def sign_up():
         return redirect(request.url)
 
     return render_template("public/sign_up.html")
+
+users = {
+    'mitsuhiko': {
+        'name': 'Armin Ronacher',
+        'bio': 'Creator of Flask framework',
+        'twitter_handler': '@mitsuhiko'
+    },
+        'gvanrossum': {
+        'name': 'Guido Van Rossum',
+        'bio': 'Creator of Python programming language',
+        'twitter_handler': '@gvanrossum'
+    },
+        'elonmusk': {
+        'name': 'Elon Musk',
+        'bio': 'Technology entrepeneur, investor and engineer',
+        'twitter_handler': '@elonmusk'
+    }
+}
+
+@app.route("/profile/<username>")
+def profile(username):
+    
+    user = None
+    if username in users:
+        user = users[username]
+
+    return render_template("public/profile.html", user=user, username=username)
+
+@app.route("/multiple/<foo>/<bar>/<baz>")
+def multi(foo, bar, baz):
+    return f"foo is {foo}, bar is {bar}, baz is {baz}"
